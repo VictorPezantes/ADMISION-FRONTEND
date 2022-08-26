@@ -1,0 +1,56 @@
+<div class="flex flex-col gap-2" [formGroup]="formFilters">
+    <mat-form-field class="w-full" appearance="fill">
+        <mat-label>Buscador</mat-label>
+        <input
+                matInput
+                autocomplete="off"
+                placeholder="Buscador"
+                [formControlName]="'search'">
+        <mat-icon matSuffix class="touched" svgIcon="heroicons_outline:search"></mat-icon>
+    </mat-form-field>
+    <mat-form-field class="fuse-mat-no-subscript fuse-mat-dense" appearance="fill">
+        <mat-label>Especialidad del postulante</mat-label>
+        <mat-select placeholder="Especialidad del postulante">
+            <mat-option [value]="null">----</mat-option>
+            <ng-container *ngFor="let option of []">
+                <mat-option [value]="option.id">{{ option.name }}</mat-option>
+            </ng-container>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field class="fuse-mat-no-subscript fuse-mat-dense" appearance="fill">
+        <mat-label>Responsable asignado</mat-label>
+        <mat-select placeholder="Responsable asignado">
+            <mat-option [value]="null">----</mat-option>
+            <ng-container *ngFor="let option of []">
+                <mat-option [value]="option.id">{{ option.name }}</mat-option>
+            </ng-container>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field class="fuse-mat-no-subscript fuse-mat-dense" appearance="fill">
+        <mat-label>Procedencia</mat-label>
+        <mat-select placeholder="Procedencia">
+            <mat-option [value]="null">----</mat-option>
+            <ng-container *ngFor="let option of []">
+                <mat-option [value]="option.id">{{ option.name }}</mat-option>
+            </ng-container>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field class="fuse-mat-no-subscript fuse-mat-dense" appearance="fill">
+        <mat-label>Estado de la postulacion</mat-label>
+        <mat-select formControlName="status" placeholder="Estado de la postulacion">
+            <mat-option [value]="null">----</mat-option>
+            <ng-container *ngFor="let option of []">
+                <mat-option [value]="option.id">{{ option.name }}</mat-option>
+            </ng-container>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field class="fuse-mat-no-subscript fuse-mat-dense" appearance="fill">
+        <mat-label>Cargo de la postulacion</mat-label>
+        <mat-select placeholder="Cargo de la postulacion">
+            <mat-option [value]="null">----</mat-option>
+            <ng-container *ngFor="let option of []">
+                <mat-option [value]="option.id">{{ option.name }}</mat-option>
+            </ng-container>
+        </mat-select>
+    </mat-form-field>
+</div>

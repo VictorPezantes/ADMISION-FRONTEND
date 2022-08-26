@@ -1,0 +1,38 @@
+<div class="flex flex-col gap-4 p-8 w-full ">
+    <div class="flex flex-col justify-between">
+        <mat-card class="mat-elevation-z0 pt-10 pb-10">
+            <mat-card-content class="flex flex-col gap-10">
+                <mat-chip-list class="flex flex-row justify-center" aria-label="Color selection">
+                    <mat-chip *ngFor="let chip of availableColors" selected [color]="chip.color">
+                        {{chip.name}}
+                    </mat-chip>
+                </mat-chip-list>
+                <div class="flex flex-row justify-center">
+                    <mat-chip selected color="primary">
+                        Mision
+                    </mat-chip>
+                </div>
+                <div class="text-justify">
+                    Technotankers INC. se compromete a brindar servicios de mantenimiento confiables y de alta
+                    calidad, ademas de garantizar que nuestros clientes disfruten de la confianza absoluta de que
+                    recibiran un servicio  de clase mundial, manteniendo un enfoque constante en la seguridad, porque
+                    la seguridad tiene un proposito y lo consideramos fundamental para nuestro exito, valoramos la
+                    relacion establecida con nuestros clientes y les ofrecemos paquetes integrales de servicios.
+                </div>
+                <div class="flex flex-row justify-center">
+                    <mat-chip selected color="primary">
+                        Vision
+                    </mat-chip>
+                </div>
+                <div class="text-justify">
+                    A traves de la innovacion y tenacidad de nuestro equipo, Technotankers Inc. pretende ser la mejor
+                    opcion para los clientes. Lograr un crecimiento permanente manteniendonos por encima de los
+                    estandares de calidad promedio y ampliando nuestra presencia a traves del desarrollo de nuevos y
+                    mejores servicios.
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+
+</div>
+

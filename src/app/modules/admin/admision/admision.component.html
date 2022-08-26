@@ -1,0 +1,37 @@
+<mat-drawer-container (backdropClick)="onBackdropClicked()"
+                      class="flex-auto h-full bg-card dark:bg-transparent">
+
+    <!-- Drawer -->
+    <mat-drawer
+            class="w-full sm:w-100 dark:bg-gray-900"
+            [mode]="drawerMode"
+            [opened]="false"
+            [position]="'end'"
+            [disableClose]="true"
+            #matDrawer>
+        <router-outlet></router-outlet>
+    </mat-drawer>
+
+    <mat-drawer-content class="flex flex-col bg-gray-100 dark:bg-transparent">
+
+        <!-- Main -->
+        <div class="flex flex-col flex-auto">
+
+            <!-- Header -->
+            <div
+                    class="flex flex-col sm:flex-row items-start sm:items-center sm:justify-between p-6 sm:py-12 md:px-8 border-b bg-card dark:bg-transparent">
+                <!-- Title -->
+                <div>
+                    <div class="title-main text-4xl font-extrabold tracking-tight leading-none">Admisión > {{ title }}</div>
+                </div>
+            </div>
+
+            <div class="p-6">
+                <router-outlet></router-outlet>
+            </div>
+
+        </div>
+
+    </mat-drawer-content>
+
+</mat-drawer-container>

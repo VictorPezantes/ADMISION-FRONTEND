@@ -1,0 +1,114 @@
+<article class="flex flex-row gap-5 w-full">
+    <section class="flex flex-col gap-2">
+        <mat-card class="mat-elevation-z0">
+            <mat-card-content>
+                <h1 class="text-center text-primary-500">Filtrar informacion del postulante</h1>
+                <hr>
+                <app-postulant-filters></app-postulant-filters>
+            </mat-card-content>
+        </mat-card>
+    </section>
+    <section class="flex flex-col w-10/12">
+        <mat-paginator [length]="count"
+                       [pageIndex]="0"
+                       [pageSize]="20"
+                       [pageSizeOptions]="[5, 10, 25, 50, 100, 250, 500]">
+        </mat-paginator>
+
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z0 w-full">
+
+            <!--- Note that these columns can be defined in any order.
+                  The actual rendered columns are set as a property on the row definition" -->
+
+            <!-- Position Column -->
+            <ng-container matColumnDef="estado">
+                <th mat-header-cell *matHeaderCellDef class="uppercase text-primary-500"> Estado</th>
+                <td mat-cell *matCellDef="let element">
+                    <button mat-icon-button
+                            [matTooltip]="element?.status | statusOffers">
+                        <mat-icon svgIcon="heroicons_outline:information-circle" [ngClass]="{
+                                'status-success': element.status === 2,
+                                'status-created': element.status === 3,
+                                'status-warning': element.status === 3
+                            }"></mat-icon>
+                    </button>
+                </td>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="informacion">
+                <th mat-header-cell *matHeaderCellDef class="uppercase text-primary-500"> Informacion del postulante</th>
+                <td mat-cell *matCellDef="let element">
+                    <div class="flex flex-col">
+                        <div class="font-extrabold text-primary-700">
+                            {{(element?.name || '')+ ' ' + (element?.secondName || '') + ' ' + (element?.lastName || '') + ' ' + (element?.surName || '')}}
+                        </div>
+                        <div class="font-extralight">
+                            {{(element?.department?.name || '') + ' - ' + (element?.province?.name || '') + ' - ' + (element?.district?.name || '')}}
+                        </div>
+                        <div class="font-light">
+                            {{element?.email || '-'}}
+                        </div>
+                    </div>
+                </td>
+            </ng-container>
+
+            <!-- Weight Column -->
+            <ng-container matColumnDef="responsable">
+                <th mat-header-cell *matHeaderCellDef class="uppercase text-primary-500"> Responsable</th>
+                <td mat-cell *matCellDef="let element"> {{element?.cantidadPostulantes || 0}} </td>
+            </ng-container>
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="imagen">
+                <th mat-header-cell *matHeaderCellDef class="uppercase text-primary-500"> Imagen</th>
+                <td mat-cell
+                    *matCellDef="let element"> {{element?.offerCreator?.name}} </td>
+            </ng-container>
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="actions">
+                <th mat-header-cell *matHeaderCellDef>&nbsp;</th>
+                <td mat-cell *matCellDef="let element">
+                    <button mat-icon-button
+                            [matMenuTriggerFor]="offerActions"
+                            color="primary">
+                        <mat-icon>more_vert</mat-icon>
+                    </button>
+                    <mat-menu
+                            [xPosition]="'before'"
+                            #offerActions="matMenu">
+                        <button mat-menu-item>
+                            Imprimir cv
+                        </button>
+                        <button mat-menu-item>
+                            Exportar cv como pdf
+                        </button>
+                        <button mat-menu-item>
+                            Asignar responsable
+                        </button>
+                        <button mat-menu-item>
+                            Cambiar sub estado
+                        </button>
+                        <button mat-menu-item>
+                            Ver informacion
+                        </button>
+                        <button mat-menu-item>
+                            Generar ficha postulante
+                        </button>
+                        <button mat-menu-item>
+                            Ver ficha postulante
+                        </button>
+                        <button mat-menu-item>
+                            Cancelar proceso de admision
+                        </button>
+                    </mat-menu>
+                </td>
+            </ng-container>
+
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+    </section>
+</article>

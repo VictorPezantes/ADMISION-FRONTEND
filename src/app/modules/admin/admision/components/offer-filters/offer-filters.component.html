@@ -1,0 +1,37 @@
+<div class="flex flex-col gap-2" [formGroup]="formFilters">
+    <mat-form-field class="w-full" appearance="fill">
+        <mat-label>Buscador</mat-label>
+        <input
+                matInput
+                autocomplete="off"
+                placeholder="Buscador"
+                [formControlName]="'search'">
+        <mat-icon matSuffix class="touched" svgIcon="heroicons_outline:search"></mat-icon>
+    </mat-form-field>
+    <mat-form-field class="fuse-mat-no-subscript fuse-mat-dense" appearance="fill">
+        <mat-label>Estado de la oferta</mat-label>
+        <mat-select formControlName="status" placeholder="Estado de la oferta">
+            <mat-option [value]="null">----</mat-option>
+            <ng-container *ngFor="let option of status">
+                <mat-option [value]="option.id">{{ option.name }}</mat-option>
+            </ng-container>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field class="fuse-mat-no-subscript fuse-mat-dense" appearance="fill">
+        <mat-label>Creador de la oferta</mat-label>
+        <mat-select formControlName="offer_creator" placeholder="Creador de la oferta">
+            <mat-option [value]="null">----</mat-option>
+            <ng-container *ngFor="let option of employees$ | async">
+                <mat-option [value]="option.id">{{ option?.name }}</mat-option>
+            </ng-container>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field class="w-full" appearance="fill">
+        <mat-label>Fecha de publicación</mat-label>
+        <input matInput [matDatepicker]="endDate" autocomplete="off" type="text"
+               placeholder="Fecha de publicación" formControlName="publication_date"
+               (click)="endDate.open()">
+        <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
+        <mat-datepicker #endDate></mat-datepicker>
+    </mat-form-field>
+</div>
