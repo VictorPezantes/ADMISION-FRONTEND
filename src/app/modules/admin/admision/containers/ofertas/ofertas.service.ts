@@ -22,23 +22,23 @@ export class OfertasService {
     }
 
     get(queryParams = null): Observable<IPagination<Oferta>> {
-        return this._httpClient.get<IPagination<Oferta>>(`${this.apiUrl}admision/offers/`, {params: queryParams});
+        return this._httpClient.get<IPagination<Oferta>>(`${this.apiUrl}oferta/listar`, {params: queryParams});
     }
 
     getAvailableOffers(queryParams = null): Observable<any> {
-        return this._httpClient.get<any>(`${this.apiUrl}admision/available-offers/`, {params: queryParams});
+        return this._httpClient.get<any>(`${this.apiUrl}oferta/listar-landing`, {params: queryParams});
     }
 
     create(payload, user: User): Observable<any> {
         payload.offerCreator = user.id;
-        return this._httpClient.post<any>(`${this.apiUrl}admision/offers/`, payload);
+        return this._httpClient.post<any>(`${this.apiUrl}oferta/crear/`, payload);
     }
 
     update(payload): Observable<any> {
-        return this._httpClient.patch<any>(`${this.apiUrl}admision/offers/${payload.id}/`, payload);
+        return this._httpClient.patch<any>(`${this.apiUrl}oferta/actualizar/${payload.id}/`, payload);
     }
 
     delete(id: number): Observable<void> {
-        return this._httpClient.delete<void>(`${this.apiUrl}admision/offers/${id}/`);
+        return this._httpClient.delete<void>(`${this.apiUrl}oferta/eliminar/${id}/`);
     }
 }

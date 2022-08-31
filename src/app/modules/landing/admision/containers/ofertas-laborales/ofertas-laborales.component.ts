@@ -22,9 +22,10 @@ export class OfertasLaboralesComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this._offerService.getAvailableOffers({paginated: false})
+        this._offerService.getAvailableOffers({paginated: true})
             .subscribe(results => {
-                this.availableOffers = results;
+                console.log(results);
+                this.availableOffers = results.content;
             });
     }
 
@@ -40,7 +41,7 @@ export class OfertasLaboralesComponent implements OnInit {
     }
 
     goLogin(): void {
-        this._router.navigateByUrl('/iniciar-sesion');
+        this._router.navigateByUrl('solicitud/registrar-solicitud');
     }
 
 }

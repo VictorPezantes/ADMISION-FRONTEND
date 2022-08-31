@@ -1,15 +1,15 @@
-import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {BehaviorSubject, merge, Observable, Subject, switchMap, takeUntil} from 'rxjs';
-import {MatPaginator} from '@angular/material/paginator';
-import {OfertasService} from './ofertas.service';
-import {Oferta} from '../../admision.interface';
-import {NgxSpinnerService} from 'ngx-spinner';
-import {FormUtils} from '../../../../../shared/utils/form.utils';
-import {CreateOfferComponent} from '../../components/create-offer/create-offer.component';
-import {MessageProviderService} from '../../../../../shared/services/message-provider.service';
-import {ChangeStatusComponent} from '../../components/change-status/change-status.component';
-import {AdmisionService} from '../../admision.service';
-import {IPagination} from '../../../../../shared/interfaces/common.interface';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { BehaviorSubject, merge, Observable, Subject, switchMap, takeUntil } from 'rxjs';
+import { MatPaginator } from '@angular/material/paginator';
+import { OfertasService } from './ofertas.service';
+import { Oferta } from '../../admision.interface';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { FormUtils } from '../../../../../shared/utils/form.utils';
+import { CreateOfferComponent } from '../../components/create-offer/create-offer.component';
+import { MessageProviderService } from '../../../../../shared/services/message-provider.service';
+import { ChangeStatusComponent } from '../../components/change-status/change-status.component';
+import { AdmisionService } from '../../admision.service';
+import { IPagination } from '../../../../../shared/interfaces/common.interface';
 
 @Component({
     selector: 'app-ofertas',
@@ -24,6 +24,7 @@ export class OfertasComponent implements OnInit, AfterViewInit, OnDestroy {
     displayedColumns: string[] = ['estado', 'ofertas', 'postulantes', 'creador', 'fecha_publicacion', 'actions'];
 
     count = 0;
+    numpagina = 0;
 
     changesSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
     unsubscribe: Subject<void> = new Subject<void>();
@@ -57,16 +58,17 @@ export class OfertasComponent implements OnInit, AfterViewInit, OnDestroy {
                     this._ngxSpinner.show();
                     const rawValue = this._offerService.eventFilters.value;
                     const filters = rawValue ? FormUtils.deleteKeysNullInObject(rawValue) : null;
-                    const queryParamsByPaginator = {...filters} as any;
+                    const queryParamsByPaginator = { ...filters } as any;
                     queryParamsByPaginator.limit = this.paginator.pageSize;
                     queryParamsByPaginator.offset = queryParamsByPaginator.limit * this.paginator.pageIndex;
                     return this._offerService.get(queryParamsByPaginator);
                 })
             ).subscribe((response) => {
-            this._ngxSpinner.hide();
-            this.count = response.count;
-            this.dataSource = response.results;
-        });
+                this._ngxSpinner.hide();
+                this.count = response.count;
+                this.dataSource = response.content;
+                console.log(response.content);
+            });
     }
 
     createOrEditOffer(element?): void {
@@ -80,8 +82,8 @@ export class OfertasComponent implements OnInit, AfterViewInit, OnDestroy {
 
         this._messageProviderService.showModal(CreateOfferComponent, dialogData)
             .afterClosed().subscribe(_ => {
-            this.changesSubject.next(true);
-        });
+                this.changesSubject.next(true);
+            });
     }
 
     changeStatusOffer(element?): void {
@@ -95,8 +97,8 @@ export class OfertasComponent implements OnInit, AfterViewInit, OnDestroy {
 
         this._messageProviderService.showModal(ChangeStatusComponent, dialogData)
             .afterClosed().subscribe(_ => {
-            this.changesSubject.next(true);
-        });
+                this.changesSubject.next(true);
+            });
     }
 
     ngOnDestroy(): void {

@@ -3,7 +3,7 @@ export interface IPagination<T> {
     maxPages: number;
     page: number;
     totalElements: number;
-    results: Array<T>;
+    content: Array<T>;
 }
 
 export interface IDialogData<T> {

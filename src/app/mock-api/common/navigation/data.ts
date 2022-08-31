@@ -79,6 +79,13 @@ export const defaultItemsNavigations: FuseNavigationItem[] = [
                 icon : 'heroicons_outline:chart-pie',
                 link : '/recursos-humanos/personal',
             },
+            {
+                id   : 'cargo',
+                title: 'Cargo',
+                type : 'basic',
+                icon : 'heroicons_outline:chart-pie',
+                link : '#',
+            },
         ]
     }
 ];

@@ -59,7 +59,7 @@ export class ExamenMedicoComponent implements OnInit, AfterViewInit, OnDestroy {
         ).subscribe((response) => {
       this._ngxSpinner.hide();
       this.count = response.count;
-      this.dataSource = response.results;
+      this.dataSource = response.content;
     });
   }
 

@@ -55,9 +55,9 @@ export class CreateOfferComponent implements OnInit, OnDestroy {
     createFormActions(): void {
         this.formActions = this._fb.group({
             id: [null],
-            title: [null, [Validators.required]],
+            titulo: [null, [Validators.required]],
             requisito: [null, [Validators.required]],
-            description: [null, [Validators.required]],
+            descripcion: [null, [Validators.required]],
             position: [null, [Validators.required]],
         });
     }

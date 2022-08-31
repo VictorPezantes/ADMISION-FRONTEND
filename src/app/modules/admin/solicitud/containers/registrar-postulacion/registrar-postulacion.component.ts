@@ -1,12 +1,12 @@
-import {Component, OnInit} from '@angular/core';
-import {FormGroup, UntypedFormBuilder, Validators} from '@angular/forms';
-import {SolicitudService} from '../../solicitud.service';
-import {Observable, Subject, takeUntil} from 'rxjs';
-import {AbstractChoice} from '../../../../../shared/interfaces/common.interface';
-import {CommonService} from '../../../../../shared/services/common.service';
-import {NgxSpinnerService} from 'ngx-spinner';
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
+import { SolicitudService } from '../../solicitud.service';
+import { Observable, Subject, takeUntil } from 'rxjs';
+import { AbstractChoice } from '../../../../../shared/interfaces/common.interface';
+import { CommonService } from '../../../../../shared/services/common.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 import moment from 'moment';
-import {MatSnackBar} from '@angular/material/snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
     selector: 'app-registrar-postulacion',
@@ -31,7 +31,7 @@ export class RegistrarPostulacionComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.civilStatus$ = this._commonService.getCivilStatus({paginated: false});
+        this.civilStatus$ = this._commonService.getCivilStatus({ paginated: false });
 
         this._requestService.eventCreate
             .pipe(takeUntil(this.unsubscribe))
@@ -93,7 +93,7 @@ export class RegistrarPostulacionComponent implements OnInit {
     async createTransaction(payload): Promise<void> {
         try {
             await this._requestService.registerRequest(payload).toPromise();
-            this._snackService.open('Solicitud registrada correctamente', 'Cerrar', {duration: 2000});
+            this._snackService.open('Solicitud registrada correctamente', 'Cerrar', { duration: 2000 });
             this.formActions.reset();
         } catch (err) {
             throw new Error(err);

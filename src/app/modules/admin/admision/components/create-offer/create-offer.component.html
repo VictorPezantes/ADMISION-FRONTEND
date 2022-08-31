@@ -16,8 +16,8 @@
                             matInput
                             autocomplete="off"
                             placeholder="Ingrese un título para la oferta"
-                            [formControlName]="'title'">
-                    <mat-error *ngIf="formActions.get('title').hasError('required')">
+                            [formControlName]="'titulo'">
+                    <mat-error *ngIf="formActions.get('titulo').hasError('required')">
                         Este campo es requerido
                     </mat-error>
                 </mat-form-field>
@@ -26,8 +26,8 @@
                     <textarea matInput
                               autocomplete="off"
                               placeholder="Ingrese una descripción de la oferta mínimo 50 caracteres máximo 1000 caracteres"
-                              formControlName="description"></textarea>
-                    <mat-error *ngIf="formActions.get('description').hasError('required')">
+                              formControlName="descripcion"></textarea>
+                    <mat-error *ngIf="formActions.get('descripcion').hasError('required')">
                         Este campo es requerido
                     </mat-error>
                 </mat-form-field>
@@ -46,7 +46,7 @@
                     <mat-select formControlName="position" placeholder="Asociar cargo a la oferta">
                         <mat-option [value]="null">----</mat-option>
                         <ng-container *ngFor="let option of positions$ | async">
-                            <mat-option [value]="option">{{ option.name }}</mat-option>
+                            <mat-option [value]="option">{{ option.nombreCargo }}</mat-option>
                         </ng-container>
                     </mat-select>
                 </mat-form-field>

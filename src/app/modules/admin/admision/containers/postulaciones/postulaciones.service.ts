@@ -21,12 +21,12 @@ export class PostulacionesService {
   ) { }
 
   get(queryParams = null): Observable<IPagination<Oferta>> {
-    return this._httpClient.get<IPagination<Oferta>>(`${this.apiUrl}admision/postulants/`, {params: queryParams});
+    return this._httpClient.get<IPagination<Oferta>>(`${this.apiUrl}postulante/listar-postulantes/`, {params: queryParams});
   }
 
   create(payload, user: User): Observable<any> {
     payload.offerCreator = user.id;
-    return this._httpClient.post<any>(`${this.apiUrl}admision/postulants/`, payload);
+    return this._httpClient.post<any>(`${this.apiUrl}postulante/listar-postulantes/`, payload);
   }
 
   update(payload): Observable<any> {

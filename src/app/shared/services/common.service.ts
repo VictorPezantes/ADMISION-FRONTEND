@@ -16,11 +16,11 @@ export class CommonService {
   ) { }
 
   getStatus(queryParams = null): Observable<Estado[]> {
-    return this._httpClient.get<Estado[]>(`${this.apiUrl}estado/lista`, {params: queryParams});
+    return this._httpClient.get<Estado[]>(`${this.apiUrl}estado/lista/`, {params: queryParams});
   }
 
   getPositions(queryParams = null): Observable<AbstractChoice[]> {
-    return this._httpClient.get<AbstractChoice[]>(`${this.apiUrl}common/position-applies/`, {params: queryParams});
+    return this._httpClient.get<AbstractChoice[]>(`${this.apiUrl}cargo/listar/`, {params: queryParams});
   }
 
   getCivilStatus(queryParams = null): Observable<AbstractChoice[]> {

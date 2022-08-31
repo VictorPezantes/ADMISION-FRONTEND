@@ -16,6 +16,6 @@ export class SolicitudService {
   ) { }
 
   registerRequest(payload): Observable<any> {
-    return this._httpClient.post<any>(`${this.apiUrl}admision/register-request/`, payload);
+    return this._httpClient.post<any>(`${this.apiUrl}postulante/registrar/`, payload);
   }
 }

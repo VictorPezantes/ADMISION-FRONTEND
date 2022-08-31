@@ -4,7 +4,7 @@
 
 export const environment = {
     production: false,//puerto del tomcat
-    apiUrl: 'http://localhost:8080/',
+    apiUrl: 'http://localhost:8080/api/v1/',
     //apiUrl: 'http://localhost:8001/api/v1/',
     // apiUrlV1: 'https://jwt-ttk.herokuapp.com/'
 };
