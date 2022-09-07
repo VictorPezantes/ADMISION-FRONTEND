@@ -1,11 +1,11 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {Estado, IDialogData} from '../../../../../shared/interfaces/common.interface';
-import {NgxSpinnerService} from 'ngx-spinner';
-import {CommonService} from '../../../../../shared/services/common.service';
-import {OfertasService} from '../../containers/ofertas/ofertas.service';
-import {FormControl, FormGroup, UntypedFormBuilder, Validators} from '@angular/forms';
-import {Observable} from 'rxjs';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Estado, IDialogData } from '../../../../../shared/interfaces/common.interface';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { CommonService } from '../../../../../shared/services/common.service';
+import { OfertasService } from '../../containers/ofertas/ofertas.service';
+import { FormControl, FormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
+import { Observable } from 'rxjs';
 
 @Component({
     selector: 'app-change-status',
@@ -16,11 +16,7 @@ export class ChangeStatusComponent implements OnInit {
 
     formActions: FormGroup;
 
-    status: Estado[] = [
-        {id: 1, name: 'Pendiente'},
-        {id: 2, name: 'Aprobada'},
-        {id: 3, name: 'Rechazada'}
-    ];
+    status: Estado[];
 
     constructor(
         private _fb: UntypedFormBuilder,
@@ -35,7 +31,7 @@ export class ChangeStatusComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        // this.status$ = this._commonService.getStatus();
+        this.estados();
     }
 
     get id(): FormControl {
@@ -50,7 +46,7 @@ export class ChangeStatusComponent implements OnInit {
     createFormActions(): void {
         this.formActions = this._fb.group({
             id: [null, [Validators.required]],
-            status: [null, [Validators.required]],
+            estadoOferta: [null, [Validators.required]],
         });
     }
 
@@ -66,13 +62,18 @@ export class ChangeStatusComponent implements OnInit {
 
     async evaluateTransaction(payload) {
         try {
-            await this._offerService.update(payload).toPromise();
+            await this._offerService.cambiarEstado(payload).toPromise();
             this.dialogRef.close();
         } catch (err) {
             throw new Error(err);
         } finally {
             this._ngxSpinner.hide();
         }
+    }
+
+    estados(): void {
+        this._commonService.getStatus().subscribe(estado => (this.status = estado));
+        //console.log(this.status);
     }
 
 }

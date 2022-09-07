@@ -22,6 +22,7 @@ import {MatCardModule} from '@angular/material/card';
 import {MatChipsModule} from '@angular/material/chips';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 
+
 const routerConfig: ExtraOptions = {
     preloadingStrategy       : PreloadAllModules,
     scrollPositionRestoration: 'enabled'
@@ -35,6 +36,7 @@ export function scrollFactory(overlay: Overlay): () => BlockScrollStrategy {
     declarations: [
         AppComponent,
         EmpresaComponent,
+        
     ],
     imports: [
         BrowserModule,

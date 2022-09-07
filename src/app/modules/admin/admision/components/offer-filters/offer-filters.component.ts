@@ -1,12 +1,12 @@
-import {AfterViewInit, Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, UntypedFormBuilder} from '@angular/forms';
-import {OfertasService} from '../../containers/ofertas/ofertas.service';
-import {debounceTime, Observable, Subject, takeUntil} from 'rxjs';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, UntypedFormBuilder } from '@angular/forms';
+import { OfertasService } from '../../containers/ofertas/ofertas.service';
+import { debounceTime, Observable, Subject, takeUntil } from 'rxjs';
 import moment from 'moment';
-import {Encargado, Estado} from '../../../../../shared/interfaces/common.interface';
-import {CommonService} from '../../../../../shared/services/common.service';
-import {UserService} from '../../../../../core/user/user.service';
-import {User} from '../../../../../core/user/user.types';
+import { Encargado, Estado } from '../../../../../shared/interfaces/common.interface';
+import { CommonService } from '../../../../../shared/services/common.service';
+import { UserService } from '../../../../../core/user/user.service';
+import { User } from '../../../../../core/user/user.types';
 
 @Component({
     selector: 'app-offer-filters',
@@ -17,11 +17,7 @@ export class OfferFiltersComponent implements OnInit, AfterViewInit {
 
     formFilters: FormGroup;
 
-    status: Estado[] = [
-        {id: 1, name: 'Pendiente'},
-        {id: 2, name: 'Aprobada'},
-        {id: 3, name: 'Rechazada'}
-    ];
+    status: Estado[];
     employees$: Observable<User[]>;
 
     unsubscribe: Subject<void> = new Subject<void>();
@@ -30,12 +26,14 @@ export class OfferFiltersComponent implements OnInit, AfterViewInit {
         private _fb: UntypedFormBuilder,
         private _userService: UserService,
         private _offerService: OfertasService,
+        private _commonService: CommonService,
     ) {
         this.createFormFilters();
     }
 
     ngOnInit(): void {
-        this.employees$ = this._userService.getAll({paginated: false});
+        this.employees$ = this._userService.getAll({ paginated: false });
+        this.estados();
     }
 
     ngAfterViewInit(): void {
@@ -43,6 +41,7 @@ export class OfferFiltersComponent implements OnInit, AfterViewInit {
             .pipe(takeUntil(this.unsubscribe), debounceTime(500))
             .subscribe(value => {
                 const parsedData = this.castToParams(value);
+                console.log(parsedData);
                 this._offerService.eventFilters.next(parsedData);
             });
     }
@@ -66,6 +65,10 @@ export class OfferFiltersComponent implements OnInit, AfterViewInit {
     ngOnDestroy(): void {
         this.unsubscribe.next();
         this.unsubscribe.complete();
+    }
+
+    estados(): void {
+        this._commonService.getStatus().subscribe(estado => (this.status = estado));
     }
 
 }

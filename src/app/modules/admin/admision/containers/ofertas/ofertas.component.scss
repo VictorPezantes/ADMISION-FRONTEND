@@ -22,13 +22,22 @@ table {
 
 
 .status-success {
-  color: forestgreen;
+  width: 5px;
+  margin: 10px 10px;
+  padding: 15px;
+  background-color: forestgreen;
 }
 
 .status-created {
-  color: gold;
+  width: 5px;
+  margin: 5px 10px;
+  padding: 15px;
+  background-color: gold;
 }
 
 .status-warning {
-  color: brown;
+  width: 5px;
+  margin: 10px 100px;
+  padding: 15px;
+  background-color: brown;
 }

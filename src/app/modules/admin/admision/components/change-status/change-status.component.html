@@ -3,13 +3,13 @@
     <div mat-dialog-content [formGroup]="formActions">
         <mat-form-field class="fuse-mat-no-subscript fuse-mat-dense w-full" appearance="fill">
             <mat-label>Estado de la oferta</mat-label>
-            <mat-select formControlName="status" placeholder="Estado de la oferta">
+            <mat-select formControlName="estadoOferta" placeholder="Estado de la oferta">
                 <mat-option [value]="null">----</mat-option>
                 <ng-container *ngFor="let option of status">
-                    <mat-option [value]="option.id">{{ option.name }}</mat-option>
+                    <mat-option [value]="option.id">{{ option.estado }}</mat-option>
                 </ng-container>
             </mat-select>
-            <mat-error *ngIf="formActions.get('status').hasError('required')">
+            <mat-error *ngIf="formActions.get('estadoOferta').hasError('required')">
                 Este campo es requerido
             </mat-error>
         </mat-form-field>

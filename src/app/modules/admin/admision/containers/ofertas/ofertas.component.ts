@@ -10,6 +10,7 @@ import { MessageProviderService } from '../../../../../shared/services/message-p
 import { ChangeStatusComponent } from '../../components/change-status/change-status.component';
 import { AdmisionService } from '../../admision.service';
 import { IPagination } from '../../../../../shared/interfaces/common.interface';
+import { EditOfferComponent } from '../../components/edit-offer/edit-offer.component';
 
 @Component({
     selector: 'app-ofertas',
@@ -24,7 +25,6 @@ export class OfertasComponent implements OnInit, AfterViewInit, OnDestroy {
     displayedColumns: string[] = ['estado', 'ofertas', 'postulantes', 'creador', 'fecha_publicacion', 'actions'];
 
     count = 0;
-    numpagina = 0;
 
     changesSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
     unsubscribe: Subject<void> = new Subject<void>();
@@ -67,7 +67,7 @@ export class OfertasComponent implements OnInit, AfterViewInit, OnDestroy {
                 this._ngxSpinner.hide();
                 this.count = response.count;
                 this.dataSource = response.content;
-                console.log(response.content);
+                //console.log(this.dataSource);
             });
     }
 
@@ -85,6 +85,22 @@ export class OfertasComponent implements OnInit, AfterViewInit, OnDestroy {
                 this.changesSubject.next(true);
             });
     }
+
+    EditOffer(element?): void {
+        const dialogData = {
+            data: {
+                meta: element
+            },
+            width: '50vw',
+            disableClose: true
+        };
+
+        this._messageProviderService.showModal(EditOfferComponent, dialogData)
+            .afterClosed().subscribe(_ => {
+                this.changesSubject.next(true);
+            });
+    }
+
 
     changeStatusOffer(element?): void {
         const dialogData = {

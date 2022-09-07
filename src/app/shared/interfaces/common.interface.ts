@@ -21,6 +21,21 @@ export interface Estado {
     name: string;
 }
 
+export interface Departamento {
+    id: number;
+    name: string;
+}
+
+export interface Provincia {
+    id: number;
+    name: string;
+}
+
+export interface Distrito {
+    id: number;
+    name: string;
+}
+
 export interface Encargado {
     id: number;
     nombre: string;
@@ -33,7 +48,6 @@ export interface Cargo {
     id: number;
     name: string;
 }
-
 
 export interface AbstractChoice {
     id: number;

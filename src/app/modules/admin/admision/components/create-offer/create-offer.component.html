@@ -43,10 +43,11 @@
                 </mat-form-field>
                 <mat-form-field class="fuse-mat-no-subscript fuse-mat-dense" appearance="fill">
                     <mat-label>Cargo</mat-label>
-                    <mat-select formControlName="position" placeholder="Asociar cargo a la oferta">
+                    <mat-select formControlName="cargoOferta" placeholder="Asociar cargo a la oferta">
                         <mat-option [value]="null">----</mat-option>
-                        <ng-container *ngFor="let option of positions$ | async">
-                            <mat-option [value]="option">{{ option.nombreCargo }}</mat-option>
+                        <ng-container *ngFor="let option of cargoOferta$ | async">
+                            <mat-option [value]="option" >{{ option.nombreCargo }}</mat-option>
+                            
                         </ng-container>
                     </mat-select>
                 </mat-form-field>

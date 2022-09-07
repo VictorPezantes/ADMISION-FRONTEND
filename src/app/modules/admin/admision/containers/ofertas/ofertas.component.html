@@ -9,80 +9,91 @@
         </mat-card>
     </section>
     <section class="flex flex-col w-10/12">
-        <mat-paginator [length]="count" [pageIndex]="0" [pageSize]="20"
+        <mat-paginator [length]="dataSource.length" [pageIndex]="0" [pageSize]="20"
             [pageSizeOptions]="[5, 10, 25, 50, 100, 250, 500]">
         </mat-paginator>
 
-        <table mat-table [dataSource]="dataSource" class="mat-elevation-z0 w-full">
+        <ng-container *ngIf="dataSource.length; else notResults">
+            <table mat-table [dataSource]="dataSource" class="mat-elevation-z0 w-full">
 
-            <!--- Note that these columns can be defined in any order.
+                <!--- Note that these columns can be defined in any order.
                   The actual rendered columns are set as a property on the row definition" -->
 
-            <!-- Position Column -->
-            <ng-container matColumnDef="estado">
-                <th mat-header-cell *matHeaderCellDef class="uppercase text-primary-500"> Estado</th>
-                <td mat-cell *matCellDef="let element">
-                    <button mat-icon-button [matTooltip]="element?.status | statusOffers">
-                        <mat-icon svgIcon="heroicons_outline:information-circle" [ngClass]="{
-                                'status-success': element.status === 2,
-                                'status-created': element.status === 3,
-                                'status-warning': element.status === 3
+                <!-- Position Column -->
+                <ng-container matColumnDef="estado">
+                    <th mat-header-cell *matHeaderCellDef class="uppercase text-primary-500"> Estado</th>
+                    <td mat-cell *matCellDef="let dataSource">
+                        <button mat-icon-button [matTooltip]="dataSource?.estadoOferta?.id | statusOffers">
+                            <mat-icon svgIcon="heroicons_outline:information-circle" [ngClass]="{
+                                'status-success': dataSource?.estadoOferta?.id === 2,
+                                'status-created': dataSource?.estadoOferta?.id === 1,
+                                'status-warning': dataSource?.estadoOferta?.id === 3
                             }"></mat-icon>
-                    </button>
-                </td>
-            </ng-container>
-
-            <!-- Name Column -->
-            <ng-container matColumnDef="ofertas">
-                <th mat-header-cell *matHeaderCellDef class="uppercase text-primary-500"> Oferta</th>
-                <td mat-cell *matCellDef="let element">
-                    <div class="flex flex-col">
-                        <div class="font-extrabold text-primary-700">{{element?.titulo || '-'}}</div>
-                        <div class="font-extralight">{{element?.requisito || '-'}}</div>
-                        <div class="font-light">{{element?.descripcion || '-'}}</div>
-                    </div>
-                </td>
-            </ng-container>
-
-            <!-- Weight Column -->
-            <ng-container matColumnDef="postulantes">
-                <th mat-header-cell *matHeaderCellDef class="uppercase text-primary-500"> Postulantes</th>
-                <td mat-cell *matCellDef="let element"> {{element?.cantidadPostulantes || 0}} </td>
-            </ng-container>
-
-            <!-- Symbol Column -->
-            <ng-container matColumnDef="creador">
-                <th mat-header-cell *matHeaderCellDef class="uppercase text-primary-500"> Creador</th>
-                <td mat-cell *matCellDef="let element"> {{element?.creadorOferta?.nombre}} </td>
-            </ng-container>
-
-            <!-- Symbol Column -->
-            <ng-container matColumnDef="fecha_publicacion">
-                <th mat-header-cell *matHeaderCellDef class="uppercase text-primary-500"> Fecha Publicación</th>
-                <td mat-cell *matCellDef="let element"> {{element?.fechaPublicacion}} </td>
-            </ng-container>
-
-            <!-- Symbol Column -->
-            <ng-container matColumnDef="actions">
-                <th mat-header-cell *matHeaderCellDef>&nbsp;</th>
-                <td mat-cell *matCellDef="let element">
-                    <button mat-icon-button [matMenuTriggerFor]="offerActions" color="primary">
-                        <mat-icon>more_vert</mat-icon>
-                    </button>
-                    <mat-menu [xPosition]="'before'" #offerActions="matMenu">
-                        <button mat-menu-item (click)="createOrEditOffer(element)">
-                            Editar
                         </button>
-                        <button mat-menu-item (click)="changeStatusOffer(element)">
-                            Cambiar estado
+                    </td>
+                </ng-container>
+
+                <!-- Name Column -->
+                <ng-container matColumnDef="ofertas">
+                    <th mat-header-cell *matHeaderCellDef class="uppercase text-primary-500"> Oferta</th>
+                    <td mat-cell *matCellDef="let element">
+                        <div class="flex flex-col">
+                            <div class="font-extrabold text-primary-700">{{element?.titulo || '-'}}</div>
+                            <div class="font-extralight">{{element?.requisito || '-'}}</div>
+                            <div class="font-light">{{element?.descripcion || '-'}}</div>
+                        </div>
+                    </td>
+                </ng-container>
+
+                <!-- Weight Column -->
+                <ng-container matColumnDef="postulantes">
+                    <th mat-header-cell *matHeaderCellDef class="uppercase text-primary-500"> Postulantes</th>
+                    <td mat-cell *matCellDef="let element"> {{element?.cantidadPostulantes || 0}} </td>
+                </ng-container>
+
+                <!-- Symbol Column -->
+                <ng-container matColumnDef="creador">
+                    <th mat-header-cell *matHeaderCellDef class="uppercase text-primary-500"> Creador</th>
+                    <td mat-cell *matCellDef="let element"> {{element?.creadorOferta?.nombre}} </td>
+                </ng-container>
+
+                <!-- Symbol Column -->
+                <ng-container matColumnDef="fecha_publicacion">
+                    <th mat-header-cell *matHeaderCellDef class="uppercase text-primary-500"> Fecha Publicación</th>
+                    <td mat-cell *matCellDef="let element"> {{element?.fechaPublicacion}} </td>
+                </ng-container>
+
+                <!-- Symbol Column -->
+                <ng-container matColumnDef="actions">
+                    <th mat-header-cell *matHeaderCellDef>&nbsp;</th>
+                    <td mat-cell *matCellDef="let element">
+                        <button mat-icon-button [matMenuTriggerFor]="offerActions" color="primary">
+                            <mat-icon>more_vert</mat-icon>
                         </button>
-                    </mat-menu>
-                </td>
-            </ng-container>
+                        <mat-menu [xPosition]="'before'" #offerActions="matMenu">
+                            <button mat-menu-item (click)="EditOffer(element)">
+                                Editar
+                            </button>
+                            <button mat-menu-item (click)="changeStatusOffer(element)">
+                                Cambiar estado
+                            </button>
+                        </mat-menu>
+                    </td>
+                </ng-container>
 
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-        </table>
+            </table>
+        </ng-container>
+
+        <!-- No results -->
+        <ng-template #notResults>
+            <div class="flex flex-auto flex-col items-center justify-center bg-gray-100 dark:bg-transparent">
+                <mat-icon class="icon-size-24" [svgIcon]="'heroicons_outline:document-search'"></mat-icon>
+                <div class="mt-6 text-2xl font-semibold tracking-tight text-secondary">Sin resultados!</div>
+            </div>
+        </ng-template>
+
     </section>
 </article>

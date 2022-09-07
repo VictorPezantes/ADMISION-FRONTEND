@@ -1,0 +1,87 @@
+<div class="flex flex-col w-full gap-4">
+    <h2 mat-dialog-title>{{ id.value ? 'Editar' : 'Crear' }}&nbsp; oferta laboral</h2>
+    <div mat-dialog-content>
+        <div class="flex flex-row w-full gap-10">
+            <div class="flex flex-col w-3/12 gap-5 text-justify" *ngIf="!id.value">
+                <h1 class="font-bold">Nueva oferta laboral</h1>
+                <p>Desde aqui puedes crear una nueva oferta de forma manual.</p>
+                <p>Una oferta es una posición ofrecida por una empresa
+                    para que una persona desempeñe un trabajo.</p>
+                <p>Los campos con (*) son obligatorios.</p>
+            </div>
+            <div class="flex flex-col w-9/12" [formGroup]="formActions">
+                <mat-form-field class="w-full" appearance="fill">
+                    <mat-label>Título</mat-label>
+                    <input
+                            matInput
+                            autocomplete="off"
+                            placeholder="Ingrese un título para la oferta"
+                            [formControlName]="'titulo'">
+                    <mat-error *ngIf="formActions.get('titulo').hasError('required')">
+                        Este campo es requerido
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="w-full" appearance="fill">
+                    <mat-label>Descripción</mat-label>
+                    <textarea matInput
+                              autocomplete="off"
+                              placeholder="Ingrese una descripción de la oferta mínimo 50 caracteres máximo 1000 caracteres"
+                              formControlName="descripcion"></textarea>
+                    <mat-error *ngIf="formActions.get('descripcion').hasError('required')">
+                        Este campo es requerido
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="w-full" appearance="fill">
+                    <mat-label>Requisito</mat-label>
+                    <textarea matInput
+                              autocomplete="off"
+                              placeholder="Ingrese una descripción de la oferta mínimo 50 caracteres máximo 1000 caracteres"
+                              formControlName="requisito"></textarea>
+                    <mat-error *ngIf="formActions.get('requisito').hasError('required')">
+                        Este campo es requerido
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="fuse-mat-no-subscript fuse-mat-dense" appearance="fill">
+                    <mat-label>Cargo</mat-label>
+                    <mat-select formControlName="cargoOferta" placeholder="Asociar cargo a la oferta">
+                        <mat-option [value]="null">----</mat-option>
+                        <ng-container *ngFor="let option of cargoOferta$ | async">
+                            <mat-option [value]="option" >{{ option.nombreCargo }}</mat-option>
+                            
+                        </ng-container>
+                    </mat-select>
+                <!--  se modifica    
+                </mat-form-field>
+                <mat-form-field class="fuse-mat-no-subscript fuse-mat-dense" appearance="fill">
+                    <mat-label>Creador</mat-label>
+                    <mat-select formControlName="creadorOferta" placeholder="Asociar cargo a la oferta">
+                        <mat-option [value]="null">----</mat-option>
+                        <ng-container *ngFor="let creador of creadorOferta$">
+                            <mat-option [value]="creador" >{{ creador.creadorOferta }}</mat-option>
+                            
+                        </ng-container>
+                    </mat-select>
+                    
+                </mat-form-field>
+                <mat-form-field class="fuse-mat-no-subscript fuse-mat-dense" appearance="fill">
+                    <mat-label>Estado</mat-label>
+                    <mat-select formControlName="estadoOferta" placeholder="Asociar cargo a la oferta">
+                        <mat-option [value]="null">----</mat-option>
+                        <ng-container *ngFor="let estado of estadoOferta$ | async">
+                            <mat-option [value]="estado" >{{ estado.estadoOferta }}</mat-option>
+                            
+                        </ng-container>
+                    </mat-select>--> 
+                    
+                </mat-form-field>
+                
+            </div>
+            
+        </div>
+    </div>
+    
+    <div class="flex flex-row-reverse gap-4" mat-dialog-actions>
+        <button mat-stroked-button color="primary" (click)="createOrEditOffer()">{{ id.value ? 'Actualizar oferta' : 'Crear oferta'}}</button>
+        <button mat-stroked-button mat-dialog-close cdkFocusInitial color="warn">Cancelar</button>
+    </div>
+</div>

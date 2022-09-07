@@ -22,7 +22,7 @@ export class CreateOfferComponent implements OnInit, OnDestroy {
 
     formActions: FormGroup;
 
-    positions$: Observable<AbstractChoice[]>;
+    cargoOferta$: Observable<AbstractChoice[]>;
 
     user: User;
 
@@ -43,7 +43,7 @@ export class CreateOfferComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
-        this.positions$ = this._commonService.getPositions();
+        this.cargoOferta$ = this._commonService.getPositions();
 
         this._userService.user$
             .pipe(takeUntil(this._unsubscribeAll))
@@ -58,7 +58,9 @@ export class CreateOfferComponent implements OnInit, OnDestroy {
             titulo: [null, [Validators.required]],
             requisito: [null, [Validators.required]],
             descripcion: [null, [Validators.required]],
-            position: [null, [Validators.required]],
+            cargoOferta: [null, [Validators.required]],
+/*  se modifica*/ 
+
         });
     }
 
@@ -84,9 +86,10 @@ export class CreateOfferComponent implements OnInit, OnDestroy {
     castToPayload(rawValue) {
         const payload = {...rawValue};
         console.log('payload ==> ', payload);
-        payload.position = payload?.position?.id || null;
+        payload.cargoOferta = payload?.cargoOferta || null;
         return payload;
     }
+    
 
     async evaluateTransaction(payload) {
         try {

@@ -53,7 +53,7 @@ export class UserService {
      * Get the current logged in user data
      */
     getAll(queryParams = null): Observable<User[]> {
-        return this._httpClient.get<User[]>(environment.apiUrl + 'auth/usuario-logueado/', {params: queryParams});
+        return this._httpClient.get<User[]>(environment.apiUrl + 'auth/listar-usuarios-activos/', {params: queryParams});
     }
 
     /**

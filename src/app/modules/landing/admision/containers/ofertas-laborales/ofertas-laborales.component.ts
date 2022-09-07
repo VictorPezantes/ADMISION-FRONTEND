@@ -24,7 +24,7 @@ export class OfertasLaboralesComponent implements OnInit {
     ngOnInit(): void {
         this._offerService.getAvailableOffers({paginated: true})
             .subscribe(results => {
-                console.log(results);
+                //console.log(results);
                 this.availableOffers = results.content;
             });
     }
