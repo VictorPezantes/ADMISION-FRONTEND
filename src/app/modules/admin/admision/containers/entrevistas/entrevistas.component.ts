@@ -7,6 +7,8 @@ import {NgxSpinnerService} from 'ngx-spinner';
 import {MessageProviderService} from '../../../../../shared/services/message-provider.service';
 import {PostulacionesService} from '../postulaciones/postulaciones.service';
 import {FormUtils} from '../../../../../shared/utils/form.utils';
+import {Postulante} from '../../admision.interface';
+
 
 @Component({
   selector: 'app-entrevistas',
@@ -17,7 +19,7 @@ export class EntrevistasComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  dataSource: Oferta[] = [];
+  dataSource: Postulante[] = [];
   displayedColumns: string[] = ['imagen', 'informacion', 'responsable', 'estado', 'actions'];
 
   count = 0;

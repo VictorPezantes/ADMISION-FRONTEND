@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {BehaviorSubject, Observable, Subject} from 'rxjs';
 import {IPagination} from '../../../../../shared/interfaces/common.interface';
-import {Oferta} from '../../admision.interface';
+import {Postulante} from '../../admision.interface';
 import {User} from '../../../../../core/user/user.types';
 import {environment} from '../../../../../../environments/environment';
 import {HttpClient} from '@angular/common/http';
@@ -14,14 +14,14 @@ export class PostulacionesService {
   private apiUrl = environment.apiUrl;
 
   public eventCreate: Subject<void> = new Subject<void>();
-  eventFilters: BehaviorSubject<any> = new BehaviorSubject<any>(null);
+  public eventFilters: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
   constructor(
       private _httpClient: HttpClient,
   ) { }
 
-  get(queryParams = null): Observable<IPagination<Oferta>> {
-    return this._httpClient.get<IPagination<Oferta>>(`${this.apiUrl}postulante/listar/`, {params: queryParams});
+  get(queryParams = null): Observable<IPagination<Postulante>> {
+    return this._httpClient.get<IPagination<Postulante>>(`${this.apiUrl}postulante/listar/`, {params: queryParams});
   }
 
   create(payload, user: User): Observable<any> {

@@ -9,45 +9,50 @@
         </mat-card>
     </section>
     <section class="flex flex-col w-10/12">
-        <mat-paginator [length]="count"
-                       [pageIndex]="0"
-                       [pageSize]="20"
-                       [pageSizeOptions]="[5, 10, 25, 50, 100, 250, 500]">
-        </mat-paginator>
+        
+        <mat-paginator [length]="dataSource.length" [pageIndex]="0" [pageSize]="20"
+        [pageSizeOptions]="[5, 10, 25, 50, 100, 250, 500]">
+    </mat-paginator>
 
+        <ng-container *ngIf="dataSource.length">
         <table mat-table [dataSource]="dataSource" class="mat-elevation-z0 w-full">
 
             <!--- Note that these columns can be defined in any order.
                   The actual rendered columns are set as a property on the row definition" -->
 
-            <!-- Position Column -->
-            <ng-container matColumnDef="estado">
-                <th mat-header-cell *matHeaderCellDef class="uppercase text-primary-500"> Estado</th>
-                <td mat-cell *matCellDef="let element">
-                    <button mat-icon-button
-                            [matTooltip]="element?.status | statusOffers">
-                        <mat-icon svgIcon="heroicons_outline:information-circle" [ngClass]="{
-                                'status-success': element.status === 2,
-                                'status-created': element.status === 3,
-                                'status-warning': element.status === 3
-                            }"></mat-icon>
-                    </button>
-                </td>
-            </ng-container>
+           <!-- Position Column -->
+ <ng-container matColumnDef="estado">
+    <th mat-header-cell *matHeaderCellDef class="uppercase text-primary-500"> Estado</th>
+    <td mat-cell *matCellDef="let dataSource">
+        <button mat-icon-button [matTooltip]="dataSource?.estadoPostulacion | statusPostulant">
+            <mat-icon svgIcon="heroicons_outline:information-circle" [ngClass]="{
+                    'status-INGRESADO': dataSource?.estadoPostulacion === 1,
+                    'status-VERIFICACION': dataSource?.estadoPostulacion === 2,
+                    'status-ENTREVISTA-PERSONAL': dataSource?.estadoPostulacion === 3,
+                    'status-FUERA-DEL-PROCESO': dataSource?.estadoPostulacion === 4,
+                    'status-EXAMEN-MÉDICO': dataSource?.estadoPostulacion === 5,
+                    'status-REFERENCIAS-PERSONALES': dataSource?.estadoPostulacion === 6,
+                    'status-POLIGRAFIA': dataSource?.estadoPostulacion === 7,
+                    'status-EVALUACIÓN-PSICOLABORAL': dataSource?.estadoPostulacion === 8,
+                    'status-ALTA-EMPRESA': dataSource?.estadoPostulacion === 9
+                }"></mat-icon>
+        </button>
+    </td>
+</ng-container>
 
             <!-- Name Column -->
             <ng-container matColumnDef="informacion">
                 <th mat-header-cell *matHeaderCellDef class="uppercase text-primary-500"> Informacion del postulante</th>
-                <td mat-cell *matCellDef="let element">
+                <td mat-cell *matCellDef="let dataSource">
                     <div class="flex flex-col">
                         <div class="font-extrabold text-primary-700">
-                            {{(element?.name || '')+ ' ' + (element?.secondName || '') + ' ' + (element?.lastName || '') + ' ' + (element?.surName || '')}}
+                            {{(dataSource?.primerNombre || '')+ ' ' + (dataSource?.segundoNombre || '') + ' ' + (dataSource?.apellidoPaterno || '') + ' ' + (dataSource?.apellidoMaterno || '')}}
                         </div>
                         <div class="font-extralight">
-                            {{(element?.department?.name || '') + ' - ' + (element?.province?.name || '') + ' - ' + (element?.district?.name || '')}}
+                            {{(dataSource?.idDepartamento?.name || '') + ' #Departamento ' + (element?.idProvincia?.name || '') + ' #Provincia ' + (dataSource?.idDistrito?.name || '')+ ' #Distrito'}}
                         </div>
                         <div class="font-light">
-                            {{element?.email || '-'}}
+                            {{dataSource?.email || '-'}}
                         </div>
                     </div>
                 </td>
@@ -56,17 +61,17 @@
             <!-- Weight Column -->
             <ng-container matColumnDef="responsable">
                 <th mat-header-cell *matHeaderCellDef class="uppercase text-primary-500"> Responsable</th>
-                <td mat-cell *matCellDef="let element"> {{element?.cantidadPostulantes || 0}} </td>
+                <td mat-cell *matCellDef="let dataSource"> {{dataSource?.idOferta || 0}} </td>
             </ng-container>
 
             <!-- Symbol Column -->
             <ng-container matColumnDef="imagen">
                 <th mat-header-cell *matHeaderCellDef class="uppercase text-primary-500"> Imagen</th>
                 <td mat-cell
-                    *matCellDef="let element"> {{element?.offerCreator?.name}} </td>
+                    *matCellDef="let dataSource"> {{dataSource?.urlFotografia}} </td>
             </ng-container>
-
-            <!-- Symbol Column -->
+          
+             <!-- Symbol Column -->
             <ng-container matColumnDef="actions">
                 <th mat-header-cell *matHeaderCellDef>&nbsp;</th>
                 <td mat-cell *matCellDef="let element">
@@ -110,5 +115,6 @@
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
+    </ng-container>
     </section>
 </article>

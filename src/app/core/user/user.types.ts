@@ -8,7 +8,7 @@ export interface User
     role?: any;
     rol?: any;
     avatar?: string;
-    /*fotografia?: string;*/
+    fotografia?: string;
     status?: string;
     roles?: any;
     authorities?: {

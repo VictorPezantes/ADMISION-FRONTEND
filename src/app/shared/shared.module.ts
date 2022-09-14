@@ -6,6 +6,7 @@ import { PostulantInformationComponent } from './components/postulant-informatio
 import { SliderInformationComponent } from './components/slider-information/slider-information.component';
 import { OfferInformationComponent } from './components/offer-information/offer-information.component';
 import { StatusOffersPipe } from './pipes/status-offers.pipe';
+import { StatusPostulantPipe } from './pipes/status-postulant.pipe';
 
 @NgModule({
     imports: [
@@ -17,16 +18,19 @@ import { StatusOffersPipe } from './pipes/status-offers.pipe';
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
-        StatusOffersPipe
+        StatusOffersPipe,
+        StatusPostulantPipe
     ],
     declarations: [
       FiltersByPaginationComponent,
       PostulantInformationComponent,
       SliderInformationComponent,
       OfferInformationComponent,
-      StatusOffersPipe
+      StatusOffersPipe,
+      StatusPostulantPipe
     ]
 })
 export class SharedModule
 {
+  
 }

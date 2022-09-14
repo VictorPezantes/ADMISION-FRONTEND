@@ -1,24 +1,25 @@
 import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {AdmisionService} from '../../admision.service';
 import {MatPaginator} from '@angular/material/paginator';
-import {Oferta} from '../../admision.interface';
-import {BehaviorSubject, merge, Subject, switchMap} from 'rxjs';
+import {Postulante} from '../../admision.interface';
+import {BehaviorSubject, merge, Subject, switchMap, takeUntil} from 'rxjs';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {MessageProviderService} from '../../../../../shared/services/message-provider.service';
-import {OfertasService} from '../ofertas/ofertas.service';
 import {FormUtils} from '../../../../../shared/utils/form.utils';
 import {PostulacionesService} from './postulaciones.service';
+import { CreatePostulantComponent } from '../../components/create-postulant/create-postulant.component';
 
 @Component({
   selector: 'app-postulaciones',
   templateUrl: './postulaciones.component.html',
   styleUrls: ['./postulaciones.component.scss']
 })
+
 export class PostulacionesComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  dataSource: Oferta[] = [];
+  dataSource: Postulante[] = [];
   displayedColumns: string[] = ['imagen', 'informacion', 'responsable', 'estado', 'actions'];
 
   count = 0;
@@ -36,6 +37,9 @@ export class PostulacionesComponent implements OnInit, AfterViewInit, OnDestroy 
   }
 
   ngOnInit(): void {
+    this._postulacionService.eventCreate
+     .pipe(takeUntil(this.unsubscribe))
+      .subscribe(_ => this.createOrEditPostulant());
   }
 
   ngAfterViewInit(): void {
@@ -61,6 +65,7 @@ export class PostulacionesComponent implements OnInit, AfterViewInit, OnDestroy 
       this._ngxSpinner.hide();
       this.count = response.count;
       this.dataSource = response.content;
+      console.log(this.dataSource);
     });
   }
 
@@ -69,4 +74,18 @@ export class PostulacionesComponent implements OnInit, AfterViewInit, OnDestroy 
     this.unsubscribe.complete();
   }
 
+  createOrEditPostulant(element?): void {
+    const dialogData = {
+        data: {
+            meta: element
+        },
+        width: '50vw',
+        disableClose: true
+    };
+
+    this._messageProviderService.showModal(CreatePostulantComponent, dialogData)
+        .afterClosed().subscribe(_ => {
+            this.changesSubject.next(true);
+        });
+}
 }

@@ -47,8 +47,8 @@ export class OfferFiltersComponent implements OnInit, AfterViewInit {
     }
 
     castToParams(filters) {
-        filters.publication_date = filters?.publication_date ?
-            moment(filters?.publication_date).format('DD-MM-git YYYY')
+        filters.fechaPublicacion = filters?.fechaPublicacion ?
+            moment(filters?.fechaPublicacion).format('DD-MM-git YYYY')
             : null
         return filters;
     }
@@ -58,7 +58,7 @@ export class OfferFiltersComponent implements OnInit, AfterViewInit {
             search: [''],
             status: [''],
             offer_creator: [''],
-            publication_date: [''],
+            fechaPublicacion: [''],
         });
     }
 

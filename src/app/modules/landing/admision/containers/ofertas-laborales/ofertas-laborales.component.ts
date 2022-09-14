@@ -44,4 +44,8 @@ export class OfertasLaboralesComponent implements OnInit {
         this._router.navigateByUrl('solicitud/registrar-solicitud');
     }
 
+    cancel(): void {
+        this._router.navigateByUrl('solicitud/registrar-solicitud');
+    }
+
 }

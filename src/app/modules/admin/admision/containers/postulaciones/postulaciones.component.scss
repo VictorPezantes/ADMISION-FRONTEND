@@ -2,10 +2,80 @@ table {
   td {
     padding-bottom: 1rem;
     padding-top: 1rem;
+    
   }
 }
 
 .mat-paginator {
   display: flex;
   justify-content: right;
+}
+
+.mat-column-actions {
+  width: 50px;
+  text-align: center;
+}
+
+.mat-column-estado {
+  width: 120px;
+  text-align: left;
+  
+}
+
+.status-INGRESADO {
+  width: 5px;
+  margin: 10px 10px;
+  padding: 15px;
+  background-color: rgb(11, 213, 248);
+}
+
+.status-VERIFICACION {
+  width: 5px;
+  margin: 5px 10px;
+  padding: 15px;
+  background-color: rgb(0, 83, 32);
+}
+
+.status-ENTREVISTA-PERSONAL {
+  width: 5px;
+  margin: 10px 100px;
+  padding: 15px;
+  background-color: rgb(251, 255, 0);
+}
+
+.status-FUERA-DEL-PROCESO {
+  width: 5px;
+  margin: 10px 100px;
+  padding: 15px;
+  background-color: rgb(255, 0, 0);
+}
+.status-EXAMEN-MÉDICO {
+  width: 5px;
+  margin: 10px 100px;
+  padding: 15px;
+  background-color: rgb(255, 153, 0);
+}
+.status-REFERENCIAS-PERSONALES {
+  width: 5px;
+  margin: 10px 100px;
+  padding: 15px;
+  background-color: rgb(158, 158, 158);
+}
+.status-POLIGRAFIA {
+  width: 5px;
+  margin: 10px 100px;
+  padding: 15px;
+  background-color: rgb(17, 0, 255);
+}
+.status-EVALUACIÓN-PSICOLABORAL {
+  width: 5px;
+  margin: 10px 100px;
+  padding: 15px;
+  background-color: rgb(132, 0, 255);
+}
+.status-ALTA-EMPRESA {
+  width: 5px;
+  margin: 10px 100px;
+  padding: 15px;
+  background-color: rgb(0, 255, 13);
 }

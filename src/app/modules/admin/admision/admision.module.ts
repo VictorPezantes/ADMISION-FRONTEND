@@ -29,6 +29,8 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { SharedModule } from '../../../shared/shared.module';
 import { PostulantFiltersComponent } from './components/postulant-filters/postulant-filters.component';
 import { EditOfferComponent } from './components/edit-offer/edit-offer.component';
+import { CreatePostulantComponent } from './components/create-postulant/create-postulant.component';
+
 
 const routes: Routes = [
     {
@@ -82,7 +84,9 @@ const routes: Routes = [
         CreateOfferComponent,
         ChangeStatusComponent,
         PostulantFiltersComponent,
-        EditOfferComponent
+        EditOfferComponent,
+        
+        
     ],
     imports: [
         CommonModule,
@@ -106,7 +110,8 @@ const routes: Routes = [
     entryComponents: [
         CreateOfferComponent,
         ChangeStatusComponent,
-        EditOfferComponent
+        EditOfferComponent,
+        CreatePostulantComponent
     ]
 })
 export class AdmisionModule {
